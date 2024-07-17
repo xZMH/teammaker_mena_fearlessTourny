@@ -9,11 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function populateTable() {
   const playersByRole = {
-    "Top Laners": [
+    Top: [
       "THEONLYTALENT",
       "ALKRKE",
       "Revenge",
-      "Kxeight",
       "Beyond",
       "Madfury",
       "Geeto",
@@ -21,7 +20,7 @@ function populateTable() {
       "Q8iYorlde",
       "Wufo",
     ],
-    Junglers: [
+    Jungle: [
       "LT Frozti",
       "Swatting",
       "Abu Mousa",
@@ -35,13 +34,10 @@ function populateTable() {
       "jskills",
       "Dom21",
     ],
-    "Mid Laners": [
+    Mid: [
       "Yazan",
       "Shugi",
       "Negan",
-      "Midsofree",
-      "Onikhan",
-      "ALMANSROOI",
       "New ajbar1",
       "type shii",
       "Solnex",
@@ -49,18 +45,15 @@ function populateTable() {
       "tmtaaz",
     ],
     ADC: [
-      "Haunt",
       "Viper",
       "SanBii",
       "Aklass",
       "KimiaKi",
       "AlphaKuroni",
       "Rust",
-      "Lionhearted",
       "Justin",
       "Helsing",
       "Humzh",
-      "Lelouch",
       "REFORMED ADC",
       "invincible",
       "Dattura",
@@ -72,11 +65,9 @@ function populateTable() {
       "Houndin",
       "Kaca",
       "Healer",
-      "Dagger",
       "Pykeonthebike",
       "Greedy",
       "Biskoo",
-      "TypicalCat",
       "قائد الداعمية",
       "Blaashti",
     ],
@@ -114,14 +105,14 @@ function createTeamTables() {
   ];
 
   const captains = [
-    { name: "Lozux", role: "Jungler", colorClass: "highlight-lozux" },
-    { name: "Ajwad", role: "Jungler", colorClass: "highlight-ajwad" },
-    { name: "Magic", role: "Mid Laner", colorClass: "highlight-magic" },
-    { name: "NinjaQ8", role: "Jungler", colorClass: "highlight-ninjaq8" },
-    { name: "Yoichi", role: "Mid Laner", colorClass: "highlight-yoichi" },
-    { name: "Zero", role: "Top Laner", colorClass: "highlight-zero" },
+    { name: "Lozux", role: "Jungle", colorClass: "highlight-lozux" },
+    { name: "Ajwad", role: "Jungle", colorClass: "highlight-ajwad" },
+    { name: "Magic", role: "Mid", colorClass: "highlight-magic" },
+    { name: "NinjaQ8", role: "Jungle", colorClass: "highlight-ninjaq8" },
+    { name: "Yoichi", role: "Mid", colorClass: "highlight-yoichi" },
+    { name: "Zero", role: "Top", colorClass: "highlight-zero" },
     { name: "Egnom", role: "Support", colorClass: "highlight-egnom" },
-    { name: "Noor", role: "Top Laner", colorClass: "highlight-noor" },
+    { name: "Noor", role: "Top", colorClass: "highlight-noor" },
   ];
 
   const teamsContainer = document.getElementById("teamsContainer");
@@ -156,6 +147,8 @@ const captains = [
   "Captain Egnom",
   "Captain Noor",
 ];
+const teamPlayersCount = new Array(captains.length).fill(1);
+const teamRoles = Array.from({ length: captains.length }, () => new Set());
 
 function setupDraftOrder() {
   document.getElementById("currentCaptain").textContent = "None";
@@ -163,20 +156,33 @@ function setupDraftOrder() {
   document.querySelectorAll("#playersTable .player-cell").forEach((cell) => {
     cell.addEventListener("click", function () {
       if (!this.classList.contains("selected")) {
-        this.classList.add("selected");
         const roleName = this.getAttribute("data-role");
         const playerName = this.textContent;
-        const highlightClass = `highlight-${captains[currentPickIndex]
-          .split(" ")[1]
-          .toLowerCase()}`;
-        this.classList.add(highlightClass);
-        addPlayerToTeamTable(
-          playerName,
-          roleName,
-          `team${currentPickIndex + 1}Table`
-        );
-        currentPickIndex = (currentPickIndex + 1) % captains.length;
-        updateCurrentCaptain(captains[currentPickIndex]);
+
+        if (
+          teamPlayersCount[currentPickIndex] < 5 &&
+          !teamRoles[currentPickIndex].has(roleName) &&
+          captains[currentPickIndex].split(" ")[1] !== roleName
+        ) {
+          this.classList.add("selected");
+          const highlightClass = `highlight-${captains[currentPickIndex]
+            .split(" ")[1]
+            .toLowerCase()}`;
+          this.classList.add(highlightClass);
+          addPlayerToTeamTable(
+            playerName,
+            roleName,
+            `team${currentPickIndex + 1}Table`
+          );
+          teamPlayersCount[currentPickIndex]++;
+          teamRoles[currentPickIndex].add(roleName);
+          currentPickIndex = (currentPickIndex + 1) % captains.length;
+          updateCurrentCaptain(captains[currentPickIndex]);
+
+          if (teamPlayersCount.every((count) => count === 5)) {
+            disablePlayerSelection();
+          }
+        }
       }
     });
   });
@@ -203,4 +209,10 @@ function updateCurrentCaptain(captain) {
   currentCaptainElement.classList.add(
     `highlight-${captain.split(" ")[1].toLowerCase()}`
   );
+}
+
+function disablePlayerSelection() {
+  document.querySelectorAll("#playersTable .player-cell").forEach((cell) => {
+    cell.classList.add("disabled");
+  });
 }
