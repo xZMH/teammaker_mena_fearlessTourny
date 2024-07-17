@@ -1,0 +1,160 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content vertically */
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #007bff; /* Adding a uniform color theme */
+}
+
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+td:hover {
+  background-color: #e8e8e8;
+}
+
+.selected {
+  font-weight: bold; /* Make text bold when selected */
+}
+
+#draftOrder {
+  width: 100%; /* Full width to center the button properly */
+  text-align: center; /* Center the contents */
+  margin-bottom: 20px;
+}
+
+.button-container {
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+#teamsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Evenly space the team tables */
+  width: 100%; /* Full width to accommodate the tables */
+}
+
+.team-table {
+  width: calc(
+    25% - 20px
+  ); /* Adjust width to fit 4 tables per row with padding */
+  margin: 10px; /* Smaller margin for tighter grid */
+  background-color: white;
+  border-radius: 8px;
+}
+
+caption {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  padding: 10px;
+  text-align: left;
+  background-color: #f0f2f5;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 1024px) {
+  .team-table {
+    width: calc(
+      50% - 20px
+    ); /* Adjust for two tables per row on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .team-table {
+    width: 80%; /* Single column layout on very small screens */
+    margin: 10px auto; /* Center align tables */
+  }
+
+  table,
+  th,
+  td {
+    font-size: 12px;
+  }
+
+  caption {
+    font-size: 16px;
+  }
+}
+
+/* Captain Highlight Colors */
+.highlight-lozux {
+  background-color: #ff4136;
+  color: white;
+}
+.highlight-ajwad {
+  background-color: #2ecc40;
+  color: white;
+}
+.highlight-magic {
+  background-color: #0074d9;
+  color: white;
+}
+.highlight-ninjaq8 {
+  background-color: #ff851b;
+  color: white;
+}
+.highlight-yoichi {
+  background-color: #b10dc9;
+  color: white;
+}
+.highlight-zero {
+  background-color: #39cccc;
+  color: white;
+}
+.highlight-egnom {
+  background-color: #85144b;
+  color: white;
+}
+.highlight-noor {
+  background-color: #ffdc00;
+  color: black;
+} /* Ensure readability */
+
+#currentCaptain {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block; /* Allows for background color to fit text */
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>League of Legends Draft</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>League of Legends Team Draft</h1>
+
+    <div id="draftOrder">
+      <h2>Current Pick: <span id="currentCaptain" class="">None</span></h2>
+      <button id="randomizeButton">Randomize First Pick</button>
+    </div>
+
+    <h2>Available Players</h2>
+    <table id="playersTable">
+      <thead>
+        <tr>
+          <th>Top Laners</th>
+          <th>Junglers</th>
+          <th>Mid Laners</th>
+          <th>ADC</th>
+          <th>Support</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="teamsContainer"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
